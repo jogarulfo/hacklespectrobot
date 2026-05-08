@@ -1,5 +1,5 @@
 # SHakeItUp
-A robot that shake things and gess the content of the container.
+A robot that shake things and guess the content of a container.
 
 Built during the 2026 robotic hackathon of Unaite x GoSIM.
 
@@ -27,4 +27,6 @@ The install.md file is a step by step of all the main command used during the ha
 
 The goal is to have a sensor on the jaw that cna get vibration data and use it to guess the content of the container. The experience have been made with a dragonfly sensor, and all the acquisition with a DAQ Dewesoft. It use the openDAQ library so you are free to modify the acqusition code to match your own setup.
 
-The main code of the acquisition is in the submodule lespectrobot/src/lerobot/robots in theirn the codeis ready to use fot the SO101 and the OpenARM ( for the BiopenArm, just replace whatever of the two OpenArm by a OpenFollowerDragonTacile Arm in the file bi_openarm_follower.py ).
+The goal is to have a sensor on the jaw that can get vibration data and use them to guess the content of the container. The experience have been made with a dragonfly sensor, and all the acquisition with a DAQ Dewesoft. It use the openDAQ library so you are free to modify the acqusition code to match your own setup.
+
+The main code of the acquisition is in the submodule lespectrobot/src/lerobot/robots   and the code is ready to use for the robot SO101 and OpenARM ( for the BiopenArm, just replace whatever of the two OpenArm by a OpenFollowerDragonTacile Arm in the file bi_openarm_follower.py ).
