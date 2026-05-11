@@ -1,6 +1,11 @@
-# ShakeItUp (Hackathon at GOSIM Paris 2026)
+# ShakeItUp (GOSIM Paris 2026)
 ShakeItUp is a project involving a bimanual robot (OpenArm by Enactic) that shakes an opaque bottle, guesses its content, and opens it only when needed.
 This project was presented at the Unaite Robotics Hackathon during the GOSIM Paris 2026 conference.
+
+<p align="center">
+  <img src="gif/demo.gif" width="700"/>
+  <br>Teleoperation during GOSIM Paris 2026</em>
+</p>
 
 The idea is to measure the dynamic deformation (strain) of the gripper and use this strain data to infer the content of an opaque bottle.
 
