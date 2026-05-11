@@ -1,23 +1,25 @@
 # ShakeItUp
-An OpenArm (Enactic) robot that shakes a container and guess its content.
+An OpenArm robot (by Enactic) that shakes a container and guess its content.
 
 Built during the Unaite Robotics Hackathon in the conference GOSIM Paris 2026.
 
-The goal is to sense the jaw deformation and to use it to guess the content of the container. 
-The experiments have been made with a Dragonfly IEPE piezo sensor (Wormsensing ref. DGF-UNI-W220405-10), and the acquisition with Dewesoft IOLITE-X. The pipeline uses openDAQ library (https://docs.opendaq.com/manual/opendaq/3.30/tutorials/tutorial_application.html), so you are free to update it to match your own setup.
+The goal is to sense the jaw deformation (strain) and to use the vibration data to guess the content of the container. 
+The experiments have been made with a Dragonfly IEPE piezo strain sensor (Wormsensing ref. DGF-UNI-W220405-10), and an acquisition system IOLITE-X (Dewesoft). 
+The strain data is streamed with openDAQ library (https://docs.opendaq.com/manual/opendaq/3.30/tutorials/tutorial_application.html). 
+Thus, you are free to update it to match your own setup.
 
-The main code of the acquisition is in the submodule lespectrobot/src/lerobot/robots, and the code is currently working with robots SO-101 and OpenArm (for the BiOpenArm, just replace any of the two OpenArm by a OpenFollowerDragonTactile Arm in the file bi_openarm_follower.py ).
+The main code of the acquisition is in the submodule lespectrobot/src/lerobot/robots, and the code is currently working with robots SO-101 and OpenArm (for the Bi-OpenArm, just replace any of the two OpenArm by a OpenFollowerDragonTactile Arm in the file bi_openarm_follower.py).
 
 
 ## Installation
 
-1. Clone the repository:
+Clone the repository:
 
 ```bash
 git clone --recursive https://github.com/jogarulfo/ShakeItUp.git
 ```
 
-2. Install dependencies:
+Install dependencies:
 
 ```bash
 uv pip install -e .
@@ -49,7 +51,6 @@ pip install rerun-sdk
 lerobot-find-cameras opencv 
 ```
 
-
 ### Setup CAN interfaces
 ```bash
 lerobot-setup-can --mode=setup --interfaces=can0,can1
@@ -63,7 +64,7 @@ lerobot-setup-can --mode=test --interfaces=can0,can1
 lerobot-setup-can --mode=speed --interfaces=can0
 ```
 
-### Teleoperation and Data Collection
+### Teleoperation and data collection
 Follower Arm (Robot)
 ```bash
 lerobot-calibrate \
@@ -75,21 +76,16 @@ lerobot-calibrate \
     --robot.id=my_biopenarm
 ```
 
-
-
-### Leader Arm (Teleoperator)
-
-
+Leader Arm (Teleoperator) \
 leader_right : /dev/ttyACM0
 leader_left : /dev/ttyACM1
 ```bash
 lerobot-calibrate --teleop.type=openarm_mini --teleop.port_left=/dev/ttyACM3 --teleop.port_right=/dev/ttyACM2   --teleop.id=my_leader
 ```
-Teleoperation
 
-Bimanual Teleoperation
+### Bimanual teleoperation
 
-To teleoperate a bimanual OpenArm setup with two leader and two follower arms:
+To teleoperate a bimanual OpenArm setup with two leader arms and two follower arms:
 ```bash
 lerobot-teleoperate \
     --robot.type=bi_openarm_follower \
@@ -105,7 +101,7 @@ lerobot-teleoperate \
     --display_data=true
 ```
 
-### w cam : 
+### With cameras : 
 
   ```bash
 lerobot-teleoperate \
@@ -122,7 +118,8 @@ lerobot-teleoperate \
     --teleop.id=my_leader \
     --display_data=true
 ```
-Recording Data
+
+### Recording Data
 
 To record a dataset during teleoperation:
 ```bash
@@ -144,7 +141,7 @@ lerobot-record \
 ```
 
 
-Inference : 
+### Inference : 
 
 ```bash
 lerobot-rollout \
@@ -158,7 +155,9 @@ lerobot-rollout \
     --robot.cameras="{ top: {type: opencv, index_or_path: 0, width: 640, height: 480, fps: 30}, wrist_right: {type: opencv, index_or_path: 4, width: 1280, height: 720, fps: 30},wrist_left: {type: opencv, index_or_path: 2, width: 1280, height: 720, fps: 30} }" \
     --task="Put the coins in the box if they are inside the bottle" \
     --duration=90
-    ```
+```
+
+### Typical outputs (ongoing cleaning)
 
 Configuration Options
 Follower Configuration
@@ -211,7 +210,6 @@ Resources
     OpenArm GitHub
     Safety Guide
     Damiao Motors and CAN Bus
-
 
 
 debugpy --wait-for-client --listen 0.0.0.0:5678 /home/josephrigal/workspace/hacklespectrobot/lespectrobot/src/lerobot/scripts/lerobot_record.py --robot.type=bi_openarm_follower     --robot.left_arm_config.port=can0     --robot.left_arm_config.side=left     --robot.right_arm_config.port=can1     --robot.right_arm_config.side=right     --robot.cameras="{ top: {type: opencv, index_or_path: 0, width: 640, height: 480, fps: 30}, wrist_right: {type: opencv, index_or_path: 4, width: 1280, height: 720, fps: 30},wrist_left: {type: opencv, index_or_path: 2, width: 1280, height: 720, fps: 30} }"     --robot.id=my_biopenarm     --teleop.type=openarm_mini     --teleop.port_left=/dev/ttyACM0     --teleop.port_right=/dev/ttyACM1     --teleop.id=my_leader     --display_data=true     --dataset.repo_id=jogarulfop/shakeitup3     --dataset.num_episodes=10
