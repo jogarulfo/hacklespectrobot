@@ -45,11 +45,6 @@ You would use "feetech" instead of "damiao" if you use SO-100 or SO-101 instead 
 
 The following is a step-by-step guide to the commands used during the hackathon to teleoperate, record, and train OpenArm using an OpenArm Mini (https://github.com/pkooij/open-arms-mini) as the leader arm.
 
-<!-- ### Cameras
-```bash 
-lerobot-find-cameras opencv 
-``` -->
-
 ### Setup CAN interfaces
 ```bash
 lerobot-setup-can --mode=setup --interfaces=can0,can1
